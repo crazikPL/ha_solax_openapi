@@ -1,0 +1,46 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to SolaX Cloud (OpenAPI)",
+        "description": "Enter the OAuth client_id / client_secret from your SolaX Cloud account's API Management / Developer Settings page.",
+        "data": {
+          "client_id": "Client ID",
+          "client_secret": "Client secret",
+          "region": "Region",
+          "plant_id": "Plant ID (optional, leave blank for all plants)"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid client ID or client secret",
+      "cannot_connect": "Could not connect to SolaX Cloud",
+      "unknown": "Unexpected error"
+    },
+    "abort": {
+      "already_configured": "This SolaX Cloud account is already configured"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "total_yield": { "name": "Total yield" },
+      "total_charged": { "name": "Total charged" },
+      "total_discharged": { "name": "Total discharged" },
+      "total_imported": { "name": "Total imported" },
+      "total_exported": { "name": "Total exported" },
+      "total_load": { "name": "Total load" },
+      "grid_power": { "name": "Grid power" },
+      "pv_power": { "name": "PV power" },
+      "ac_power": { "name": "AC power" },
+      "inverter_temperature": { "name": "Inverter temperature" },
+      "device_status": { "name": "Device status" },
+      "battery_soc": { "name": "Battery SOC" },
+      "battery_soh": { "name": "Battery state of health" },
+      "charge_discharge_power": { "name": "Charge/discharge power" },
+      "battery_voltage": { "name": "Battery voltage" },
+      "battery_current": { "name": "Battery current" },
+      "battery_temperature": { "name": "Battery temperature" },
+      "battery_remaining_energy": { "name": "Battery remaining energy" }
+    }
+  }
+}

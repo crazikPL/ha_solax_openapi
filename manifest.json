@@ -1,0 +1,11 @@
+{
+  "domain": "solax_openapi",
+  "name": "SolaX Cloud (OpenAPI, read-only)",
+  "codeowners": [],
+  "config_flow": true,
+  "documentation": "https://developer.solaxcloud.com",
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "requirements": [],
+  "version": "0.1.0"
+}
