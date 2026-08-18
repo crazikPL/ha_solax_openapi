@@ -1,0 +1,32 @@
+type: horizontal-stack
+cards:
+  - type: gauge
+    entity: sensor.solax_bateria_battery_soc
+    name: Poziom baterii
+    min: 0
+    max: 100
+    severity:
+      green: 60
+      yellow: 40
+      red: 20
+  - type: gauge
+    name: Produkcja
+    min: 0
+    max: 11000
+    unit: W
+    severity:
+      green: 6000
+      yellow: 3000
+      red: 0
+    entity: sensor.solax_falownik_pv_power
+  - type: gauge
+    entity: sensor.solax_falownik_ac_power
+    name: Zużycie / Export
+    unit: W
+    min: 0
+    max: 11000
+    severity:
+      green: 0
+      yellow: 600
+      red: 3000
+    needle: false

@@ -1,0 +1,26 @@
+type: horizontal-stack
+cards:
+  - type: gauge
+    entity: sensor.solax_bateria_charge_discharge_power
+    name: Bat in/out
+    needle: true
+    min: -10000
+    max: 10000
+  - type: gauge
+    entity: sensor.solax_falownik_inverter_temperature
+    name: Falownik temp
+    min: 0
+    max: 100
+    severity:
+      green: 0
+      yellow: 30
+      red: 60
+  - type: gauge
+    name: Bateria temp
+    min: 0
+    max: 100
+    severity:
+      green: 0
+      yellow: 30
+      red: 50
+    entity: sensor.solax_bateria_battery_temperature

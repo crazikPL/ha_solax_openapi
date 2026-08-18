@@ -1,0 +1,22 @@
+type: custom:apexcharts-card
+header:
+  title: PV / Bateria / Sieć — ostatnie 24h
+  show: true
+graph_span: 24h
+series:
+  - entity: sensor.solax_falownik_pv_power
+    name: PV
+    color: "#f5a623"
+    stroke_width: 2
+  - entity: sensor.solax_bateria_charge_discharge_power
+    name: Magazyn
+    color: "#4a90d9"
+    stroke_width: 2
+  - entity: sensor.solax_falownik_grid_power
+    name: Sieć
+    color: "#7ed321"
+    stroke_width: 2
+  - entity: sensor.pv_avg_prod_1h
+    name: PV AVG 5m
+    color: "#ff0000"
+    stroke_width: 2
