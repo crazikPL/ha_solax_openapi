@@ -5,6 +5,7 @@ Predbat project's SolaX Cloud component (springfall2008/batpred), since
 that is the only known reference implementation for this API - this keeps
 values consistent with what people may already be used to from Predbat.
 """
+
 from __future__ import annotations
 
 import logging
@@ -33,6 +34,8 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import (
+    CONF_NAME_PREFIX,
+    DEFAULT_NAME_PREFIX,
     DEVICE_TYPE_BATTERY,
     DEVICE_TYPE_INVERTER,
     DOMAIN,
@@ -56,6 +59,7 @@ class SolaxSensorDescription(SensorEntityDescription):
 # ---------------------------------------------------------------------------
 # Plant-level sensors (one set per plant, values from plant_realtime + derived)
 # ---------------------------------------------------------------------------
+
 PLANT_SENSORS: tuple[SolaxSensorDescription, ...] = (
     SolaxSensorDescription(
         key="total_yield",
@@ -114,10 +118,11 @@ PLANT_SENSORS: tuple[SolaxSensorDescription, ...] = (
     ),
 )
 
-
 # ---------------------------------------------------------------------------
 # Inverter device sensors (value_fn receives the device realtime dict)
 # ---------------------------------------------------------------------------
+
+
 def _pv_power(rt: dict) -> float:
     pv_map = rt.get("pvMap") or {}
     mppt_map = rt.get("mpptMap") or {}
@@ -246,9 +251,7 @@ BATTERY_SENSORS: tuple[SolaxSensorDescription, ...] = (
     ),
 )
 
-
 _MPPT_KEY_RE = re.compile(r"^MPPT(\d+)(Voltage|Current|Power)$")
-
 _MPPT_FIELD_UNITS: dict[str, tuple[str, SensorDeviceClass]] = {
     "Voltage": (UnitOfElectricPotential.VOLT, SensorDeviceClass.VOLTAGE),
     "Current": (UnitOfElectricCurrent.AMPERE, SensorDeviceClass.CURRENT),
@@ -329,9 +332,11 @@ class SolaxPlantSensor(CoordinatorEntity[SolaxOpenApiCoordinator], SensorEntity)
         self.entity_description = description
         self._plant_id = plant_id
         self._attr_unique_id = f"{entry.entry_id}_{plant_id}_{description.key}"
+
+        prefix = entry.data.get(CONF_NAME_PREFIX) or DEFAULT_NAME_PREFIX
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, f"plant_{plant_id}")},
-            name="SolaX Elektrownia",
+            name=f"{prefix} Elektrownia",
             manufacturer="SolaX Power",
             model="Plant",
         )
@@ -357,7 +362,9 @@ class SolaxDeviceSensor(CoordinatorEntity[SolaxOpenApiCoordinator], SensorEntity
         self.entity_description = description
         self._device_sn = device_sn
         self._attr_unique_id = f"{entry.entry_id}_{device_sn}_{description.key}"
-        simple_name = "SolaX Falownik" if device_type == DEVICE_TYPE_INVERTER else "SolaX Bateria"
+
+        prefix = entry.data.get(CONF_NAME_PREFIX) or DEFAULT_NAME_PREFIX
+        simple_name = f"{prefix} Falownik" if device_type == DEVICE_TYPE_INVERTER else f"{prefix} Bateria"
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, device_sn)},
             name=simple_name,

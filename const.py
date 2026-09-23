@@ -4,6 +4,7 @@ Read-only monitoring integration for SolaX inverters/batteries using the
 new OAuth-based SolaX OpenAPI (openapi-eu.solaxcloud.com and friends),
 as opposed to the older tokenId-based "Third-party Ecosystem" API.
 """
+
 from datetime import timedelta
 
 DOMAIN = "solax_openapi"
@@ -13,6 +14,12 @@ CONF_CLIENT_SECRET = "client_secret"
 CONF_REGION = "region"
 CONF_PLANT_ID = "plant_id"
 CONF_SCAN_INTERVAL = "scan_interval"
+# User-chosen prefix used to build device/entity names, e.g. "SolaX" ->
+# "SolaX Elektrownia" / "SolaX Falownik" / "SolaX Bateria". Configurable so
+# people with multiple plants/integrations (or who just don't like the
+# default) can pick their own prefix instead of it being hardcoded.
+CONF_NAME_PREFIX = "name_prefix"
+DEFAULT_NAME_PREFIX = "SolaX"
 
 DEFAULT_SCAN_INTERVAL_SECONDS = 60
 MIN_SCAN_INTERVAL_SECONDS = 30  # SolaX OpenAPI has a call-rate limit; don't hammer it
@@ -32,7 +39,7 @@ DEVICE_TYPE_EV_CHARGER = 4
 
 # Slow poll: plant/device metadata (rarely changes)
 SLOW_UPDATE_INTERVAL = timedelta(minutes=30)
-FAST_UPDATE_INTERVAL = timedelta(seconds=30) 
+FAST_UPDATE_INTERVAL = timedelta(seconds=30)
 
 SOLAX_API_CODES = {
     10000: "Operation successful",
